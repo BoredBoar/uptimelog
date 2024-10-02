@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.3.3/spacelab/bootstrap.min.css" integrity="sha512-NWw8XgTx2tYA5oEZwBrmyH8bg37mh4bIjeV4OLWwqI3ipQ0ITyiWTFdG295uz2lMy+QO9DszNZwta4m4mJpnmw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.js" integrity="sha512-2AL/VEauKkZqQU9BHgnv48OhXcJPx9vdzxN1JrKDVc4FPU/MEE/BZ6d9l0mP7VmvLsjtYwqiYQpDskK9dG8KBA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.7/underscore-min.js" integrity="sha512-dvWGkLATSdw5qWb2qozZBRKJ80Omy2YN/aF3wTUVC5+D1eqbA+TjWpPpoj8vorK5xGLMa2ZqIeWCpDZP/+pQGQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script> -->
+    <script src="https://unpkg.com/read-excel-file@5.x/bundle/read-excel-file.min.js"></script>
+    <title>HLA</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">HLA</a>
+        </div>
+    </nav>
+
+
+    <div class="container">
+        <div class="row"><input type="file" id="input" data-bind="event: {change: load}" /></div>
+        
+        <div class="row">
+            <p data-bind="text: 'Total Events = ' + readings().length"></p>
+            <p data-bind="text: 'Out of Range = ' + OutOfRange()"></p>
+        </div>
+
+        <div class="row">
+            <p data-bind="text: Missed()"></p>
+        </div>
+    </div>
+
+
+    <script src="app.js"></script>
+    <!-- <script>
+        var input = document.getElementById('input')
+        var readings = []
+        input.addEventListener('change', function() {
+          readXlsxFile(input.files[0]).then(function(rows) {
+            console.log(rows[14])
+            rows.forEach(row => {
+                if(row[1]){
+                    if (row[1].includes("Freezer Log - Main Lab #1")) {
+                        readings.push({ item:row[1], 
+                                        user:row[7], 
+                                        date:row[8], 
+                                        time:row[9], 
+                                        Note:row[10],
+                                        frequency:row[3], 
+                                        min:row[16], 
+                                        max:row[14], 
+                                        inRange:row[18], 
+                                        action:row[20],
+                                    })
+                    }
+                    if (row[1].includes("Water Filter Log")) {
+                        readings.push({ item:row[1], 
+                                        user:row[7], 
+                                        date:row[8], 
+                                        time:row[9], 
+                                        frequency:row[3], 
+                                        ohms:row[14], 
+                                        inRange:row[14] >= 15 && row[14] <= 18 && row[18] <= 10, 
+                                        PSIin:row[16],
+                                        PSIout:row[18],
+                                    })
+                    }
+                    if (row[1].includes("Lab Specimen Freezer Log - Main Lab #2") || 
+                        row[1].includes("Refrigerator Log") || 
+                        row[1].includes("Incubator Temperature Lo") ||
+                        row[1].includes("Lab Specimen Freezer Log - Main Lab #3") ||
+                        row[1].includes("Water Bath Temperature")
+                        ) {
+                        readings.push({ item:row[1], 
+                                        user:row[7], 
+                                        date:row[8], 
+                                        time:row[9], 
+                                        Note:row[10],
+                                        frequency:row[3], 
+                                        temp:row[14], 
+                                        inRange:row[16], 
+                                        action:row[18],
+                                    })
+                    }
+                    if (row[1].includes("Daily HLA Temperature Equipment Room") ||
+                        row[1].includes("General Room Temperature Humidity Log Main La") ||
+                        row[1].includes("Eyewash-Shower Temperature & Maintenance Chart")   
+                    ) {
+                        readings.push({ item:row[1], 
+                                        user:row[7], 
+                                        date:row[8], 
+                                        time:row[9], 
+                                        frequency:row[3],
+                                        inRange:row[14] != '-', 
+                                    })
+                    }
+            }
+            })
+            console.log(readings)
+          })
+        })
+      </script> -->
+
+</body>
+</html>
